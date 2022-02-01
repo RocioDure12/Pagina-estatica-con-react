@@ -1,0 +1,15 @@
+#root,body,html{
+  height: 100vh;
+  margin:0;
+  padding:0;
+  box-sizing: border-box;
+  background-image: linear-gradient(135deg, #43CBFF 10%, #9708CC 100%);;
+}
+
+*{
+  list-style: none;
+}
+
+.subrayado{
+  text-decoration-line:line-through ;
+}
