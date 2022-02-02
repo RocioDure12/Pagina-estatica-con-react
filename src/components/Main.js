@@ -71,6 +71,7 @@ const products = [
 const Main=()=>{
     return(<div>
         <Navbar/>
+        <div className="container-tarjetas">
         {products.map((products)=><Card
         title={products.title}
         img={products.img}
@@ -81,6 +82,7 @@ const Main=()=>{
         /> 
         )}
        
+        </div>
         </div>
     )
 }
