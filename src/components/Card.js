@@ -1,5 +1,6 @@
 import "../styles/Card.scss"
 
+
 const Card = ({ title, type, price, img, isAvailable, onSale}) => {
     return (
         <div className="card-container">

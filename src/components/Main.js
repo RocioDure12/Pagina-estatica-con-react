@@ -1,97 +1,60 @@
 import "../styles/Main.scss"
 import Card from "./Card"
 import Navbar from "./Navbar";
+import Footer from "./Footer";
+import { useState, useEffect } from "react";
 
-const products = [
-    {
-      title: 'Coombes',
-      type: "Lounge",
-      price: 2600,
-      rating: 4,
-      img: 'https://i.imgur.com/ZAxMGG5.png',
-      isAvailable: true,
-      onSale: false,
-    },
-    {
-      title: 'Keeve Set',
-      type: "Table & Chairs",
-      price: 590,
-      rating: 4,
-      img: 'https://i.imgur.com/tT8sFIs.jpeg',
-      isAvailable: false,
-      onSale: false,
-    },
-    {
-      title: 'Nillè', 
-      type: "Armchair",
-      price: 950,
-      rating: 5,
-      img: 'https://i.imgur.com/Vx1cZY0.png', 
-      isAvailable: false,
-      onSale: true,
-    },
-    {
-      title: 'Blanko', 
-      type: "Side table",
-      price: 90,
-      rating: 4,
-      img: 'https://i.imgur.com/N1Bf4ox.jpg',
-      isAvailable: true,
-      onSale: false,
-    },
-    {
-      title: 'Momo', 
-      type: "Shelves",
-      price: 890,
-      rating: 4,
-      img: 'https://i.imgur.com/AlKxDE4.jpeg', 
-      isAvailable: true,
-      onSale: false,
-    },
-    {
-      title: 'Penemillè', 
-      type: "Chair",
-      price: 120,
-      rating: 4,
-      img: 'https://i.imgur.com/pmANPjN.jpeg',
-      isAvailable: true,
-      onSale: false,
-    },
-    {
-      title: 'Kappu', 
-      type: "Shelves",
-      price: 420,
-      rating: 4,
-      img: 'https://i.imgur.com/s2rsPa1.jpg',
-      isAvailable: true,
-      onSale: false,
-    },
-  ];
+
 
 const Main=()=>{
-    return(<div>
-        <Navbar/>
-        <div className="container-tarjetas">
-        {products.map((products)=><Card
-        title={products.title}
-        img={products.img}
-        price={products.price}
-        type={products.type}
-        isAvailable={products.isAvailable}
-        onSale={products.onSale}
+    const [modo, setModo]=useState("modo-claro");
+
+    const onChangeModo = (modo) => {
+      setModo(modo);
+    };
+
+    const [producto, setProductos]=useState([]);
+    const [valorInput, setValorInput]=useState("");
+    const [busqueda, setBusqueda]=useState("");
+    const [loading, setLoading]=useState(false)
+useEffect(()=>{
+  setLoading(true);
+  fetch (`https://api.mercadolibre.com/sites/MLA/search?q=${busqueda}`)
+  .then((res) => res.json())
+  .then((data) => {
+    setProductos(data.results);
+    setLoading(false);
+  });
+}, [busqueda]);
+
+const handleChange = (e) => {
+  setValorInput(e.target.value);
+};
+
+const handleClick = () => {
+  setBusqueda(valorInput);
+};
+
+    return(
+    <div className={modo}>
+        <Navbar modoInicial={modo} onChangeModo={onChangeModo}/>
+        <div>
+      {loading && <h1>CARGANDO</h1>}
+      <h2>Buscar: {valorInput}</h2>
+      <input type="text" onChange={handleChange}></input>
+      <button onClick={handleClick}>Buscar</button>
+    </div>
+        <div className={`container-tarjetas ${modo}`} >
+        {producto.map((producto)=><Card
+        title={producto.title}
+        img={producto.thumbnail}
         /> 
         )}
        
         </div>
+        <Footer/>
         </div>
     )
 }
 
 export default Main;
-
-/*<div>
-{gatos.map((gato)=><Card
-    title={gato.name}
-    img={gato.img}
-    descripcion={gato.shortDesc}
-    contentButton={gato.name}/*/

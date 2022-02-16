@@ -4,8 +4,6 @@
   padding:0;
   box-sizing: border-box;  
   background-color:#43CBFF;
-
-
 }
 
 *{
@@ -14,4 +12,12 @@
 
 .subrayado{
   text-decoration-line:line-through ;
+}
+
+.modo-oscuro{
+  background-color: #28292b;
+}
+
+.modo-claro{
+  background-color:#43CBFF;
 }

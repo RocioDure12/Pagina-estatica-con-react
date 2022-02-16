@@ -1,8 +1,11 @@
 import "../styles/Button.scss"
-const Button=()=>{
+
+const Button=({children, onClick})=>{
     return(
-        <button>Login</button>
+        <button onClick={onClick}>{children}</button>
+    
     )
 }
 
 export default Button;
+
